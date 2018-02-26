@@ -200,14 +200,14 @@ async def tip(ctx):
     
     message = ctx.message.content.split(' ')
     if len(message) != 3:
-        msg = "Please use /tip <username> <amount>!"
+        msg = "Please use !tip <username> <amount>!"
         embed = discord.Embed(color=discord.Color.red())
         embed.add_field(name="ERROR", value=msg, inline=True)
         await bot.say(embed=embed)
         return False
 
     if not isValidUsername(message[1]):
-        msg = "Please input a valid username (ex: @JonDoe)!"
+        msg = "Please input a valid username (ex: @JonDoe01#0964)!"
         embed = discord.Embed(color=discord.Color.red())
         embed.add_field(name="ERROR", value=msg, inline=True)
         await bot.say(embed=embed)
@@ -316,7 +316,7 @@ async def withdraw(ctx):
 
     message = ctx.message.content.split(' ')
     if len(message) != 3:
-        msg = 'Please use /withdraw <address> <amount>!'
+        msg = 'Please use !withdraw <address> <amount>!'
         embed = discord.Embed(color=discord.Color.red())
         embed.add_field(name="ERROR", value=msg, inline=True)
         await bot.say(embed=embed)
