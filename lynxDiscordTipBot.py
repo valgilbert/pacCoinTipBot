@@ -289,7 +289,7 @@ async def tip(ctx):
         await bot.say(embed=embed)
         return False
 
-    msg = '@{0} tipped @{1} of {2} LYNX'.format(user_name, target, amount)
+    msg = '@{0} tipped {1} of {2} LYNX'.format(user_name, target, amount)
     embed = discord.Embed(color=discord.Color.green())
     embed.add_field(name="TIP", value=msg, inline=True)
 
