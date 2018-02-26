@@ -66,14 +66,14 @@ async def info(ctx):
       ```
                   INFO SECTION
       ```
-      commands like */tip* & */withdraw* have a specfic format,\
+      commands like *!tip* & *!withdraw* have a specfic format,\
     use them like so:
      
      Tipping format: 
-       `/tip @[user] [amount]        (without brackets)`
+       `!tip @[user] [amount]        (without brackets)`
      
      Withdrawing format: 
-       `/withdraw [address] [amount] (without brackets)`
+       `!withdraw [address] [amount] (without brackets)`
 
 
         WHERE:
