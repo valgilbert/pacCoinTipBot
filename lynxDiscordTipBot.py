@@ -137,7 +137,8 @@ async def balance(ctx):
     embed = discord.Embed(color=discord.Color.green())
     embed.add_field(name="BALANCE", value=msg, inline=True)
 
-    await bot.say(embed=embed)
+    await bot.send_message(ctx.message.author, embed=embed)
+    #await bot.say(embed=embed)
 
 
 @bot.command(pass_context=True)
