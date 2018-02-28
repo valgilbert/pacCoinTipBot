@@ -393,8 +393,8 @@ async def price(ctx):
     response  = requests.get(getmarket)
     json_data = response.json()
 
-    if not json_data:
-        msg = "Failed to get data from meanxtrade exchange!"
+    if not json_data or json_data.get('error'):
+        msg = "Failed to get data from meanxtrade.com exchange!"
         embed = discord.Embed(color=discord.Color.red())
         embed.add_field(name="ERROR", value=msg, inline=True)
         await bot.say(embed=embed)
