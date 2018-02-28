@@ -403,12 +403,12 @@ async def price(ctx):
     message = {}
 
     message['*LastPrice*'] = '{:,.8f}'.format(float(json_data['last']))
-    message['*AskPrice*'] = '{:,.8f}'.format(float(json_data['lowestAsk']))
-    message['*BidPrice*'] = '{:,.8f}'.format(float(json_data['highestBid']))
-    message['*Volume*'] = '{:,.8f}'.format(float(json_data['baseVolume']))
-    message['*High24Hr*'] = '{:,.8f}'.format(float(json_data['high24hr']))
-    message['*Low24Hr*'] = '{:,.8f}'.format(float(json_data['low24hr']))
-    message['*p%rate*'] = '{:,.8f}'.format(float(json_data['percentChange']))
+    message['*AskPrice*'] = '{:,.8f}'.format(float(json_data['lowest_ask']))
+    message['*BidPrice*'] = '{:,.8f}'.format(float(json_data['highest_bid']))
+    message['*Volume*'] = '{:,.8f}'.format(float(json_data['base_volume']))
+    message['*High24Hr*'] = '{:,.8f}'.format(float(json_data['high_24hr']))
+    message['*Low24Hr*'] = '{:,.8f}'.format(float(json_data['low_24hr']))
+    message['*p%rate*'] = '{:,.8f}'.format(float(json_data['percent_change_24hr']))
 
     pretty_object = json.dumps(message, indent=4, sort_keys=True)
     label_market  = json_data['market']
