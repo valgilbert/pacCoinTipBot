@@ -381,7 +381,7 @@ async def withdraw(ctx):
     msg = '@{0} has successfully withdrew {2} LYNX to address: {1}'\
               .format(user_name, address, amount)
     embed = discord.Embed(color=discord.Color.green())
-    embed.add_field(name="WITHDROW", value=msg, inline=True)
+    embed.add_field(name="WITHDRAW", value=msg, inline=True)
 
     await bot.say(embed=embed)
 
