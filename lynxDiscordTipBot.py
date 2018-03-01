@@ -510,12 +510,10 @@ def isValidUsername(user):
 def isValidAmount(amount):
     try:
         float(amount)
-        return True
     except ValueError:
-        pass
-    if amount.isnumeric():
+    	return False
+    else:
         return True
-    return False
 
 
 if __name__ == '__main__':
