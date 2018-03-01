@@ -49,7 +49,7 @@ async def help(ctx):
     uuid = ctx.message.author.id
 
     n="The following commands are at your disposal:"
-    v="!info, !balance, !deposit, !withdraw, !tip and !price"
+    v="!info, !balance, !deposit, !withdraw, !tip, !rain and !price"
     msg = discord.Embed(color=0x00b3b3)
     msg.add_field(name=n, value=v, inline=False)
     
@@ -71,7 +71,10 @@ async def info(ctx):
      
      Tipping format: 
        `!tip @[user] [amount]        (without brackets)`
-     
+       
+     Rain format: 
+       `!rain [amount]               (without brackets)`
+          
      Withdrawing format: 
        `!withdraw [address] [amount] (without brackets)`
 
@@ -293,6 +296,109 @@ async def tip(ctx):
     msg = '@{0} tipped {1} of {2} LYNX'.format(user_name, target, amount)
     embed = discord.Embed(color=discord.Color.green())
     embed.add_field(name="TIP", value=msg, inline=True)
+
+    await bot.say(embed=embed)
+
+    
+@bot.command(pass_context=True)
+async def rain(ctx):
+    user_name = ctx.message.author.name
+    user_uuid = ctx.message.author.id
+
+    if user_name is None:
+        msg = "Invalid username!"
+        embed = discord.Embed(color=discord.Color.red())
+        embed.add_field(name="ERROR", value=msg, inline=True)
+        await bot.say(embed=embed)
+        return False
+    if user_uuid is None:
+        msg = "Invalid userid!"
+        embed = discord.Embed(color=discord.Color.red())
+        embed.add_field(name="ERROR", value=msg, inline=True)
+        await bot.say(embed=embed)
+        return False
+    
+    message = ctx.message.content.split(' ')
+    if len(message) != 2:
+        msg = "Please use !rain <amount>!"
+        embed = discord.Embed(color=discord.Color.red())
+        embed.add_field(name="ERROR", value=msg, inline=True)
+        await bot.say(embed=embed)
+        return False
+    if not isValidAmount(message[1]):
+        msg = "Please input a valid amount (ex: 1000)!"
+        embed = discord.Embed(color=discord.Color.red())
+        embed.add_field(name="ERROR", value=msg, inline=True)
+        await bot.say(embed=embed)
+        return False
+
+    amount = float(message[1])
+
+    if amount > 100000:
+        msg = "Please insert a lower amount (max: 100,000 LYNX)!"
+        embed = discord.Embed(color=discord.Color.red())
+        embed.add_field(name="ERROR", value=msg, inline=True)
+        await bot.say(embed=embed)
+        return False
+
+    cmd = [
+        APP_EXE, 
+        '-rpcuser=bitcoin',
+        '-rpcpassword=local321', 
+        'getbalance',
+        str(user_uuid)
+    ]
+    ret = rpc_call(cmd)
+    if ret is None:
+        msg = 'rpc internal error!'
+        embed = discord.Embed(color=discord.Color.red())
+        embed.add_field(name="ERROR", value=msg, inline=True)
+        await bot.say(embed=embed)
+        return False
+
+    balance = float(ret)
+
+    if balance < amount:
+        msg = '@{0} you have insufficent funds.'.format(user_name)
+        embed = discord.Embed(color=discord.Color.red())
+        embed.add_field(name="ERROR", value=msg, inline=True)
+        await bot.say(embed=embed)
+        return False
+
+    users_online = {}
+    for server in bot.servers:
+      for u in server.members:
+        if str(u.status) is 'online':
+          users_online[u.id] = u.name
+
+    online  = len(users_online)
+    pamount = '{:,.8f}'.format(float(amount/online))
+
+    for key in sorted(users_online):
+      target_uuid = key
+      target_name = users_online[target_uuid]
+      cmd = [
+        APP_EXE,
+        '-rpcuser=bitcoin',
+        '-rpcpassword=local321',
+        'move',
+        str(user_uuid),
+        str(target_uuid),
+        str(pamount),
+      ]
+      tx = rpc_call(cmd)
+      if tx is None:
+          msg = "failed to #tip @{}!".format(target_name)
+          embed = discord.Embed(color=discord.Color.red())
+          embed.add_field(name="ERROR", value=msg, inline=True)
+          await bot.say(embed=embed)
+          return False
+
+    user_list = ",".join(users_online.values())
+    msg = "{} invoked rain spell with {} LYNX over #{} users ({})"\
+          .format(user_name, pamount, online, user_list)
+    embed = discord.Embed(color=discord.Color.green())
+    embed.add_field(name="RAIN", value=msg, inline=True)
 
     await bot.say(embed=embed)
 
