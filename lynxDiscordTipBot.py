@@ -228,8 +228,8 @@ async def tip(ctx):
     uuid = list(filter(str.isdigit, target))
     target_uuid = str(''.join(uuid))
 
-    if amount > 100000:
-        msg = "Please send a lower amount (max: 100,000 LYNX)!"
+    if amount > 100000 or amount < 1:
+        msg = "Please send value between 1 and 100,000 LYNX!"
         embed = discord.Embed(color=discord.Color.red())
         embed.add_field(name="ERROR", value=msg, inline=True)
         await bot.say(embed=embed)
@@ -334,8 +334,8 @@ async def rain(ctx):
 
     amount = float(message[1])
 
-    if amount > 100000:
-        msg = "Please insert a lower amount (max: 100,000 LYNX)!"
+    if amount > 100000 or amount < 1:
+        msg = "Please send value between 1 and 100,000 LYNX!"
         embed = discord.Embed(color=discord.Color.red())
         embed.add_field(name="ERROR", value=msg, inline=True)
         await bot.say(embed=embed)
@@ -461,7 +461,7 @@ async def withdraw(ctx):
         return False
 
     balance = float(ret)
-    if balance < amount:
+    if balance < amount+1:
         msg = '@{0} you have insufficent funds.'.format(user_name)
         embed = discord.Embed(color=discord.Color.red())
         embed.add_field(name="ERROR", value=msg, inline=True)
