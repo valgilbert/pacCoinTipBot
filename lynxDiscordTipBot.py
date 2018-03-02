@@ -495,12 +495,30 @@ async def withdraw(ctx):
 
 @bot.command(pass_context=True)
 async def price(ctx):
-    getmarket = 'https://chart.meanxtrade.com/info.php?market=LYNX_LTC'
+    markets = ('BTC', 'LTC')
+
+    message = ctx.message.content.split(' ')
+    if len(message) != 2:
+        msg = 'Please use !price [BTC/LTC]!'
+        embed = discord.Embed(color=discord.Color.red())
+        embed.add_field(name="ERROR", value=msg, inline=True)
+        await bot.say(embed=embed)
+        return False
+
+    market = message[1].upper()
+    if market not in markets:
+        msg = 'This market is not available!'
+        embed = discord.Embed(color=discord.Color.red())
+        embed.add_field(name="ERROR", value=msg, inline=True)
+        await bot.say(embed=embed)
+        return False
+  
+    getmarket = 'https://chart.meanxtrade.com/info.php?market=LYNX_'+market
     response  = requests.get(getmarket)
     json_data = response.json()
 
     if not json_data or json_data.get('error'):
-        msg = "Failed to get data from meanxtrade.com exchange!"
+        msg = "no data received from meanxtrade.com!"
         embed = discord.Embed(color=discord.Color.red())
         embed.add_field(name="ERROR", value=msg, inline=True)
         await bot.say(embed=embed)
@@ -525,7 +543,7 @@ async def price(ctx):
 
     await bot.say(embed=embed)
 
-
+    
 @bot.command(pass_context=True)
 async def mcap(ctx):
     user_name = ctx.message.author.name
