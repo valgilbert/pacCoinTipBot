@@ -493,6 +493,44 @@ async def withdraw(ctx):
     await bot.say(embed=embed)
 
 
+def meanxtrade(market):
+    getmarket = 'https://chart.meanxtrade.com/info.php?market=LYNX_'+market
+    response  = requests.get(getmarket)
+    json_data = response.json()
+
+    if not json_data or json_data.get('error'): 
+      return {}
+
+    message = {}
+
+    message['*LastPrice*'] = '{:,.8f}'.format(float(json_data['last']))
+    message['*AskPrice*'] = '{:,.8f}'.format(float(json_data['lowest_ask']))
+    message['*BidPrice*'] = '{:,.8f}'.format(float(json_data['highest_bid']))
+    message['*Volume*'] = '{:,.8f}'.format(float(json_data['base_volume']))
+
+    return message
+
+
+def cryptopia(market):
+    getmarket = 'https://www.cryptopia.co.nz/api/GetMarket/LYNX_'+market
+    response  = requests.get(getmarket)
+    json_data = response.json()
+
+    if not json_data or json_data.get('error'):
+      return {}
+    if not json_data['Data']: 
+      return {}
+
+    message = {}
+
+    message['*LastPrice*'] = '{:,.8f}'.format(json_data['Data']['Change'])
+    message['*AskPrice*'] = '{:,.8f}'.format(json_data['Data']['AskPrice'])
+    message['*BidPrice*'] = '{:,.8f}'.format(json_data['Data']['BidPrice'])
+    message['*Volume*']   = '{:,.8f}'.format(json_data['Data']['Volume'])
+
+    return message
+
+
 @bot.command(pass_context=True)
 async def price(ctx):
     markets = ('BTC', 'LTC')
@@ -512,32 +550,14 @@ async def price(ctx):
         embed.add_field(name="ERROR", value=msg, inline=True)
         await bot.say(embed=embed)
         return False
+
+    message = {
+      "meanxtrade": meanxtrade(market),
+      "cryptopia": cryptopia(market)
+    }
   
-    getmarket = 'https://chart.meanxtrade.com/info.php?market=LYNX_'+market
-    response  = requests.get(getmarket)
-    json_data = response.json()
-
-    if not json_data or json_data.get('error'):
-        msg = "no data received from meanxtrade.com!"
-        embed = discord.Embed(color=discord.Color.red())
-        embed.add_field(name="ERROR", value=msg, inline=True)
-        await bot.say(embed=embed)
-        return False
-
-    message = {}
-
-    message['*LastPrice*'] = '{:,.8f}'.format(float(json_data['last']))
-    message['*AskPrice*'] = '{:,.8f}'.format(float(json_data['lowest_ask']))
-    message['*BidPrice*'] = '{:,.8f}'.format(float(json_data['highest_bid']))
-    message['*Volume*'] = '{:,.8f}'.format(float(json_data['base_volume']))
-    message['*High24Hr*'] = '{:,.8f}'.format(float(json_data['high_24hr']))
-    message['*Low24Hr*'] = '{:,.8f}'.format(float(json_data['low_24hr']))
-    message['*p%rate*'] = '{:,.8f}'.format(float(json_data['percent_change_24hr']))
-
-    pretty_object = json.dumps(message, indent=4, sort_keys=True)
-    label_market  = json_data['market']
-
-    msg = '*meanxtrade* \[{0}]:\n{1}'.format(label_market, pretty_object)
+    msg = json.dumps(message, indent=4, sort_keys=True)
+  
     embed = discord.Embed(color=0x00b3b3)
     embed.add_field(name="PRICE", value=msg, inline=True)
 
