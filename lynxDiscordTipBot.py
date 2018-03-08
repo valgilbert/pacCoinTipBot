@@ -523,7 +523,7 @@ def cryptopia(market):
 
     message = {}
 
-    message['*LastPrice*'] = '{:,.8f}'.format(json_data['Data']['Change'])
+    message['*LastPrice*'] = '{:,.8f}'.format(json_data['Data']['LastPrice'])
     message['*AskPrice*'] = '{:,.8f}'.format(json_data['Data']['AskPrice'])
     message['*BidPrice*'] = '{:,.8f}'.format(json_data['Data']['BidPrice'])
     message['*Volume*']   = '{:,.8f}'.format(json_data['Data']['BaseVolume'])
