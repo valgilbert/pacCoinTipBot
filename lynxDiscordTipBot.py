@@ -372,9 +372,10 @@ async def rain(ctx):
           users_online[u.id] = u.name
 
     online  = len(users_online)
-    pamount = '{:,.8f}'.format(float(amount/online))
+    pamount = '{:.8f}'.format(float(amount/online))
 
     for key in sorted(users_online):
+      time.sleep(0.1)
       target_uuid = key
       target_name = users_online[target_uuid]
       cmd = [
