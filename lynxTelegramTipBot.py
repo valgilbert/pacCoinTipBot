@@ -140,14 +140,14 @@ def info(bot, update):
 
      WHERE:
     ` 
-       [address] = withdraw #LYNX address
+       [address] = withdraw #PacCoin address
           [user] = telegram username 
-        [amount] = amount of #lynx to utilise 
+        [amount] = amount of #pacCoin to utilise 
     `
 
      *NOTE*:
-      - don't deposit a significant amount of #LYNX through this #BOT
-      - make sure that you enter a valid #LYNX address when you perform a withdraw
+      - don't deposit a significant amount of #PacCoin through this #BOT
+      - make sure that you enter a valid #PacCoin address when you perform a withdraw
       - we are not responsible of your funds if something bad happen to this #BOT 
      ```
           USE THIS #BOT AT YOUR OWN RISK
@@ -207,7 +207,7 @@ def tip(bot, update):
     target = (message[1])[1:]
 
     if amount > 100000:
-        msg = "Please send a lower amount (max: 100,000 LYNX)!"
+        msg = "Please send a lower amount (max: 100,000 PacCoin)!"
         send_message(bot, chat_uuid, msg, False)
         return False
     if target == user_name:
@@ -250,7 +250,7 @@ def tip(bot, update):
     ], 
     stdout=subprocess.PIPE)
 
-    msg = '@{0} tipped @{1} of {2} LYNX'.format(user_name, target, amount)
+    msg = '@{0} tipped @{1} of {2} PacCoin'.format(user_name, target, amount)
     send_message(bot, chat_uuid, msg, False)
 
     return True
@@ -280,7 +280,7 @@ def balance(bot, update):
     balance = float(clean)
     balance = str('{:,.8f}'.format(balance))
 
-    msg = '@{0} your current balance is: {1} LYNX'.format(user_name, balance)
+    msg = '@{0} your current balance is: {1} PacCoin'.format(user_name, balance)
     send_message(bot, chat_uuid, msg, False)
 
     return True
@@ -332,7 +332,7 @@ def withdraw(bot, update):
         send_message(bot, chat_uuid, msg, False)
         return False
     if not isValidAddress(message[1]):
-        msg = 'Please input a valid LYNX address!'
+        msg = 'Please input a valid PacCoin address!'
         send_message(bot, chat_uuid, msg, False)
         return False
     if not isValidAmount(message[2]):
@@ -370,7 +370,7 @@ def withdraw(bot, update):
     ], 
     stdout=subprocess.PIPE)
 
-    msg = '@{0} has successfully withdrew {2} LYNX to address: {1}'\
+    msg = '@{0} has successfully withdrew {2} PacCoin to address: {1}'\
               .format(user_name, address, amount)
     send_message(bot, chat_uuid, msg, False)
 
@@ -380,7 +380,7 @@ def withdraw(bot, update):
 def price(bot, update):
     chat_uuid = update.message.chat_id
 
-    getmarket = 'https://chart.meanxtrade.com/info.php?market=LYNX_LTC'
+    getmarket = 'https://chart.meanxtrade.com/info.php?market=PacCoin_LTC'
     response  = requests.get(getmarket)
     json_data = response.json()
     
