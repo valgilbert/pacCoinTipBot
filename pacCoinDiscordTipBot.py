@@ -80,13 +80,13 @@ async def info(ctx):
 
 
         WHERE:
-            `[address] = withdraw #LYNX address`
+            `[address] = withdraw #PacCoin address`
             `[user] = discord username`
             `[amount] = amount of #pacCoin to utilise`
 
      *NOTE*:
-      - don't deposit a significant amount of #LYNX through this #BOT
-      - make sure that you enter a valid #LYNX address when you perform a withdraw
+      - don't deposit a significant amount of #PacCoin through this #BOT
+      - make sure that you enter a valid #PacCoin address when you perform a withdraw
       - we are not responsible of your funds if something bad happen to this #BOT 
      ```
           USE THIS #BOT AT YOUR OWN RISK
@@ -136,7 +136,7 @@ async def balance(ctx):
     balance = float(ret)
     balance = str('{:,.8f}'.format(balance))
 
-    msg = '@{0} your current balance is: {1} LYNX'.format(user_name, balance)
+    msg = '@{0} your current balance is: {1} PacCoin'.format(user_name, balance)
     embed = discord.Embed(color=discord.Color.green())
     embed.add_field(name="BALANCE", value=msg, inline=True)
 
@@ -229,7 +229,7 @@ async def tip(ctx):
     target_uuid = str(''.join(uuid))
 
     if amount > 100000 or amount < 1:
-        msg = "Please send value between 1 and 100,000 LYNX!"
+        msg = "Please send value between 1 and 100,000 PacCoin!"
         embed = discord.Embed(color=discord.Color.red())
         embed.add_field(name="ERROR", value=msg, inline=True)
         await bot.say(embed=embed)
@@ -293,7 +293,7 @@ async def tip(ctx):
         await bot.say(embed=embed)
         return False
 
-    msg = '@{0} tipped {1} of {2} LYNX'.format(user_name, target, amount)
+    msg = '@{0} tipped {1} of {2} PacCoin'.format(user_name, target, amount)
     embed = discord.Embed(color=discord.Color.green())
     embed.add_field(name="TIP", value=msg, inline=True)
 
@@ -335,7 +335,7 @@ async def rain(ctx):
     amount = float(message[1])
 
     if amount > 100000 or amount < 1:
-        msg = "Please send value between 1 and 100,000 LYNX!"
+        msg = "Please send value between 1 and 100,000 PacCoin!"
         embed = discord.Embed(color=discord.Color.red())
         embed.add_field(name="ERROR", value=msg, inline=True)
         await bot.say(embed=embed)
@@ -396,7 +396,7 @@ async def rain(ctx):
           return False
 
     user_list = ",".join(users_online.values())
-    msg = "{} invoked rain spell with {} LYNX over #{} users ({})"\
+    msg = "{} invoked rain spell with {} PacCoin over #{} users ({})"\
           .format(user_name, pamount, online, user_list)
     embed = discord.Embed(color=discord.Color.green())
     embed.add_field(name="RAIN", value=msg, inline=True)
@@ -431,7 +431,7 @@ async def withdraw(ctx):
         return False
 
     if not isValidAddress(message[1]):
-        msg = 'Please input a valid LYNX address!'
+        msg = 'Please input a valid PacCoin address!'
         embed = discord.Embed(color=discord.Color.red())
         embed.add_field(name="ERROR", value=msg, inline=True)
         await bot.say(embed=embed)
@@ -486,7 +486,7 @@ async def withdraw(ctx):
         await bot.say(embed=embed)
         return False
 
-    msg = '@{0} has successfully withdrew {2} LYNX to address: {1}'\
+    msg = '@{0} has successfully withdrew {2} PacCoin to address: {1}'\
               .format(user_name, address, amount)
     embed = discord.Embed(color=discord.Color.green())
     embed.add_field(name="WITHDRAW", value=msg, inline=True)
@@ -495,7 +495,7 @@ async def withdraw(ctx):
 
 
 def meanxtrade(market):
-    getmarket = 'https://chart.meanxtrade.com/info.php?market=LYNX_'+market
+    getmarket = 'https://chart.meanxtrade.com/info.php?market=PacCoin_'+market
     response  = requests.get(getmarket)
     json_data = response.json()
 
@@ -513,7 +513,7 @@ def meanxtrade(market):
 
 
 def cryptopia(market):
-    getmarket = 'https://www.cryptopia.co.nz/api/GetMarket/LYNX_'+market
+    getmarket = 'https://www.cryptopia.co.nz/api/GetMarket/PacCoin_'+market
     response  = requests.get(getmarket)
     json_data = response.json()
 
