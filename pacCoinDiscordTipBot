@@ -52,7 +52,7 @@ case "$1" in
   start)
 	check_for_upstart 1
 	check_dev_null
-	log_daemon_msg "Starting pacCoinDiscordTipBot server" "LYNX" || true
+	log_daemon_msg "Starting pacCoinDiscordTipBot server" "PacCoin" || true
 	if start-stop-daemon --start --background --quiet --oknodo -u root -p root -m --pidfile /var/run/pacCoinDiscordTipBot.pid --exec /usr/bin/python3 /opt/pacCoinTipBot/pacCoinDiscordTipBot.py -- $BOT_OPTS; then
 	    log_end_msg 0 || true
 	else
@@ -61,7 +61,7 @@ case "$1" in
 	;;
   stop)
 	check_for_upstart 0
-	log_daemon_msg "Stopping pacCoinDiscordTipBot server" "LYNX" || true
+	log_daemon_msg "Stopping pacCoinDiscordTipBot server" "PacCoin" || true
 	if start-stop-daemon --stop --quiet --retry 30 --pidfile /var/run/pacCoinDiscordTipBot.pid; then
 	    log_end_msg 0 || true
 	else
@@ -71,7 +71,7 @@ case "$1" in
 
   restart)
 	check_for_upstart 1
-	log_daemon_msg "Restarting pacCoinDiscordTipBot server" "LYNX" || true
+	log_daemon_msg "Restarting pacCoinDiscordTipBot server" "PacCoin" || true
 	start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile /var/run/pacCoinDiscordTipBot.pid
 	check_dev_null log_end_msg
 	if start-stop-daemon --start --background --quiet --oknodo -u root -p root -m --pidfile /var/run/pacCoinDiscordTipBot.pid --exec /usr/bin/python3 /opt/pacCoinTipBot/pacCoinDiscordTipBot.py -- $BOT_OPTS; then
