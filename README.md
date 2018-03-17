@@ -8,7 +8,7 @@ sudo apt-get install git
 
 ## Install:
 ```bash
-git clone https://github.com/jonDoe01/pacCoinTipBot
+git clone https://github.com/valgilbert/PacCoinTipBot
 bash ~/pacCoinTipBot/install.sh
 ```
 
