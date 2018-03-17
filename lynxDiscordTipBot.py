@@ -82,7 +82,7 @@ async def info(ctx):
         WHERE:
             `[address] = withdraw #LYNX address`
             `[user] = discord username`
-            `[amount] = amount of #lynx to utilise`
+            `[amount] = amount of #pacCoin to utilise`
 
      *NOTE*:
       - don't deposit a significant amount of #LYNX through this #BOT
