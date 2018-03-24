@@ -500,7 +500,6 @@ def yobit(market):
     response  = requests.get(getmarket)
     json_data = response.json()
 
-    if not json_data or json_data.get('error'):
     if not json_data or not json_data.get('pac_btc') or json_data.get('error'):
       return {}
 
@@ -543,7 +542,6 @@ def tradesatoshi(market):
     if not json_data or not json_data.get('result') or json_data.get('error'):
       return {}
 
-	json_data = json_data.get('result')
     json_data = json_data.get('result')
     message = {}
 
@@ -580,9 +578,7 @@ async def price(ctx):
     message = {
       "meanxtrade": meanxtrade(market),
       "yobit": yobit(market),
-      "cryptopia": cryptopia(market)
       "cryptopia": cryptopia(market),
-	  "tradesatoshi": tradesatoshi(market)
       "tradesatoshi": tradesatoshi(market)
     }
   
