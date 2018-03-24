@@ -575,6 +575,7 @@ async def price(ctx):
 async def utctime(ctx):
 
     msg = datetime.datetime.utcnow().strftime("%a %b %d %H:%M:%S %Z %Y")
+    msg = datetime.utcnow().strftime("%a %b %d %H:%M:%S %Z %Y")
 
     embed = discord.Embed(color=0x00b3b3)
     embed.add_field(name="UTC_TIME", value=msg, inline=True)
