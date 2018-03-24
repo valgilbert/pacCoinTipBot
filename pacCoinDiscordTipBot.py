@@ -535,14 +535,35 @@ def cryptopia(market):
 
     return message
 
+def tradesatoshi(market):
+    getmarket = 'https://tradesatoshi.com/api/public/GetTicker?market=$PAC_'+market
+    response  = requests.get(getmarket)
+    json_data = response.json()
+
+    if not json_data or not json_data.get('result') or json_data.get('error'):
+      return {}
+
+	json_data = json_data.get('result')
+    json_data = json_data.get('result')
+    message = {}
+
+    message['*LastPrice*'] = '{:,.8f}'.format(float(json_data['last']))
+    message['*AskPrice*'] = '{:,.8f}'.format(float(json_data['ask']))
+    message['*BidPrice*'] = '{:,.8f}'.format(float(json_data['bid']))
+
+    return message
 
 @bot.command(pass_context=True)
 async def price(ctx):
     markets = ('BTC', 'LTC')
+    markets = ('BTC', 'LTC', 'BCH', 'DOGE', 'USDT', 'USD')
+    markets = ('BTC', 'LTC', 'BCH', 'DOGE', 'USDT')
 
     message = ctx.message.content.split(' ')
     if len(message) != 2:
         msg = 'Please use !price [BTC/LTC]!'
+        msg = 'Please use !price [BTC/LTC/BCH/DOGE/USDT/USD]!'
+        msg = 'Please use !price [BTC/LTC/BCH/DOGE/USDT]!'
         embed = discord.Embed(color=discord.Color.red())
         embed.add_field(name="ERROR", value=msg, inline=True)
         await bot.say(embed=embed)
@@ -560,6 +581,9 @@ async def price(ctx):
       "meanxtrade": meanxtrade(market),
       "yobit": yobit(market),
       "cryptopia": cryptopia(market)
+      "cryptopia": cryptopia(market),
+	  "tradesatoshi": tradesatoshi(market)
+      "tradesatoshi": tradesatoshi(market)
     }
   
     msg = json.dumps(message, indent=4, sort_keys=True)
