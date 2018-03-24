@@ -553,14 +553,10 @@ def tradesatoshi(market):
 
 @bot.command(pass_context=True)
 async def price(ctx):
-    markets = ('BTC', 'LTC')
-    markets = ('BTC', 'LTC', 'BCH', 'DOGE', 'USDT', 'USD')
     markets = ('BTC', 'LTC', 'BCH', 'DOGE', 'USDT')
 
     message = ctx.message.content.split(' ')
     if len(message) != 2:
-        msg = 'Please use !price [BTC/LTC]!'
-        msg = 'Please use !price [BTC/LTC/BCH/DOGE/USDT/USD]!'
         msg = 'Please use !price [BTC/LTC/BCH/DOGE/USDT]!'
         embed = discord.Embed(color=discord.Color.red())
         embed.add_field(name="ERROR", value=msg, inline=True)
