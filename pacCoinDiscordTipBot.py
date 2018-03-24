@@ -9,6 +9,7 @@ import discord, asyncio
 from discord.ext import commands
 import re
 import time
+from datetime import datetime
 
 ''' begin configuration section '''
 
@@ -49,7 +50,7 @@ async def help(ctx):
     uuid = ctx.message.author.id
 
     n="The following commands are at your disposal:"
-    v="!info, !balance, !deposit, !withdraw, !tip, !rain and !price"
+    v="!info, !balance, !deposit, !withdraw, !tip, !rain, !price, and !utctime"
     msg = discord.Embed(color=0x00b3b3)
     msg.add_field(name=n, value=v, inline=False)
     
@@ -494,20 +495,20 @@ async def withdraw(ctx):
     await bot.say(embed=embed)
 
 
-def meanxtrade(market):
-    getmarket = 'https://chart.meanxtrade.com/info.php?market=$PAC_'+market
+def yobit(market):
+    getmarket = 'https://yobit.net/api/3/ticker/pac_'+market.lower()
     response  = requests.get(getmarket)
     json_data = response.json()
 
-    if not json_data or json_data.get('error'): 
+    if not json_data or json_data.get('error'):
       return {}
 
     message = {}
 
     message['*LastPrice*'] = '{:,.8f}'.format(float(json_data['last']))
-    message['*AskPrice*'] = '{:,.8f}'.format(float(json_data['lowest_ask']))
-    message['*BidPrice*'] = '{:,.8f}'.format(float(json_data['highest_bid']))
-    message['*Volume*'] = '{:,.8f}'.format(float(json_data['base_volume']))
+    message['*AskPrice*'] = '{:,.8f}'.format(float(json_data['sell']))
+    message['*BidPrice*'] = '{:,.8f}'.format(float(json_data['buy']))
+    message['*Volume*'] = '{:,.8f}'.format(float(json_data['vol_cur']))
 
     return message
 
@@ -554,6 +555,7 @@ async def price(ctx):
 
     message = {
       "meanxtrade": meanxtrade(market),
+      "yobit": yobit(market),
       "cryptopia": cryptopia(market)
     }
   
@@ -565,6 +567,18 @@ async def price(ctx):
     await bot.say(embed=embed)
 
     
+
+@bot.command(pass_context=True)
+async def utctime(ctx):
+
+    msg = datetime.datetime.utcnow().strftime("%a %b %d %H:%M:%S %Z %Y")
+
+    embed = discord.Embed(color=0x00b3b3)
+    embed.add_field(name="UTC_TIME", value=msg, inline=True)
+
+    await bot.say(embed=embed)
+
+
 @bot.command(pass_context=True)
 async def mcap(ctx):
     user_name = ctx.message.author.name
