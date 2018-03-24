@@ -50,10 +50,10 @@ async def help(ctx):
     uuid = ctx.message.author.id
 
     n="The following commands are at your disposal:"
-    v="!info, !balance, !deposit, !withdraw, !tip, !rain, !price, and !utctime"
+    v="!info, !balance, !deposit, !withdraw, !tip, !rain, !price, and !time"
     msg = discord.Embed(color=0x00b3b3)
     msg.add_field(name=n, value=v, inline=False)
-    
+
     await bot.say(embed=msg)
 
 
@@ -557,7 +557,7 @@ async def price(ctx):
 
     message = ctx.message.content.split(' ')
     if len(message) != 2:
-        msg = 'Please use !price [BTC/LTC/BCH/DOGE/USDT]!'
+        msg = 'Please use !price [btc/ltc/bch/doge/usdt]!'
         embed = discord.Embed(color=discord.Color.red())
         embed.add_field(name="ERROR", value=msg, inline=True)
         await bot.say(embed=embed)
@@ -572,25 +572,23 @@ async def price(ctx):
         return False
 
     message = {
-      "meanxtrade": meanxtrade(market),
       "yobit": yobit(market),
       "cryptopia": cryptopia(market),
       "tradesatoshi": tradesatoshi(market)
     }
-  
+
     msg = json.dumps(message, indent=4, sort_keys=True)
-  
+
     embed = discord.Embed(color=0x00b3b3)
     embed.add_field(name="PRICE", value=msg, inline=True)
 
     await bot.say(embed=embed)
 
-    
+
 
 @bot.command(pass_context=True)
-async def utctime(ctx):
+async def time(ctx):
 
-    msg = datetime.datetime.utcnow().strftime("%a %b %d %H:%M:%S %Z %Y")
     msg = datetime.utcnow().strftime("%a %b %d %H:%M:%S %Z %Y")
 
     embed = discord.Embed(color=0x00b3b3)
