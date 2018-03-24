@@ -501,14 +501,17 @@ def yobit(market):
     json_data = response.json()
 
     if not json_data or json_data.get('error'):
+    if not json_data or not json_data.get('pac_btc') or json_data.get('error'):
       return {}
 
+    json_data = json_data.get('pac_btc')
     message = {}
 
     message['*LastPrice*'] = '{:,.8f}'.format(float(json_data['last']))
     message['*AskPrice*'] = '{:,.8f}'.format(float(json_data['sell']))
     message['*BidPrice*'] = '{:,.8f}'.format(float(json_data['buy']))
     message['*Volume*'] = '{:,.8f}'.format(float(json_data['vol_cur']))
+    message['*Volume*'] = '{:,.8f}'.format(float(json_data['vol']))
 
     return message
 
