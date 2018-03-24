@@ -640,7 +640,7 @@ def isValidAddress(param):
         return False
     elif not param.isalnum():
         return False
-    elif not param[0] == 'K':
+    elif not param[0] == 'P':
         return False
     else:
         return True
