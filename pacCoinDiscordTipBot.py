@@ -10,6 +10,7 @@ from discord.ext import commands
 import re
 import time
 from datetime import datetime
+from pytz import timezone
 
 ''' begin configuration section '''
 
@@ -178,11 +179,12 @@ async def deposit(ctx):
         await bot.say(embed=embed)
         return False
 
-    msg = '@{} your depositing address is: {}'.format(user_name, ret)
+    msg = '@{} your depositing address is: `{}`'.format(user_name, ret)
     embed = discord.Embed(color=discord.Color.green())
     embed.add_field(name="DEPOSIT", value=msg, inline=True)
 
-    await bot.say(embed=embed)
+    await bot.send_message(ctx.message.author, embed=embed)
+    # await bot.say(embed=embed)
 
 
 @bot.command(pass_context=True)
@@ -589,10 +591,11 @@ async def price(ctx):
 @bot.command(pass_context=True)
 async def time(ctx):
 
-    msg = datetime.utcnow().strftime("%a %b %d %H:%M:%S %Z %Y")
+    msg = datetime.utcnow().strftime("%a %b %d %H:%M:%S %Y") + " UTC\n"
+    msg += datetime.now(timezone('EST')).strftime("%a %b %d %H:%M:%S %Y %Z")
 
     embed = discord.Embed(color=0x00b3b3)
-    embed.add_field(name="UTC_TIME", value=msg, inline=True)
+    embed.add_field(name="TIME", value=msg, inline=True)
 
     await bot.say(embed=embed)
 
