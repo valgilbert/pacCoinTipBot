@@ -654,8 +654,7 @@ def rpc_call(cmd):
     try:
         result = subprocess.run(cmd,
             stdout=subprocess.PIPE)
-    except Exception as e:
-        logger.info(e)
+    except:
         return
     ret = result.stdout.strip()
     ret = ret.decode('utf-8')
