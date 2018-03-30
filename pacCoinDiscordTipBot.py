@@ -8,7 +8,7 @@ import logging
 import discord, asyncio
 from discord.ext import commands
 import re
-import time
+import time as time_util
 from datetime import datetime
 from pytz import timezone
 
@@ -378,7 +378,7 @@ async def rain(ctx):
     pamount = '{:.8f}'.format(float(amount/online))
 
     for key in sorted(users_online):
-      time.sleep(0.1)
+      time_util.sleep(0.1)
       target_uuid = key
       target_name = users_online[target_uuid]
       cmd = [
