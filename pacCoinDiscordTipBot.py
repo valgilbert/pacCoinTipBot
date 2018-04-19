@@ -398,9 +398,15 @@ async def rain(ctx):
           await bot.say(embed=embed)
           return False
 
-    user_list = ",".join(users_online.values())
-    msg = "{} invoked rain spell with {} $PAC over #{} users ({})"\
-          .format(user_name, pamount, online, user_list)
+    sub_list = list(users_online.values())
+    user_list = ",".join(sub_list[0:2])
+    other_list = online - 50;
+    if online > 50:
+        msg = "{} invoked rain spell with {} $PAC over #{} 50 users ({}) and {} other people"\
+              .format(user_name, pamount, online, user_list, other_list)
+    else:
+       msg = "{} invoked rain spell with {} $PAC over #{} users ({})"\
+             .format(user_name, pamount, online, user_list)
     embed = discord.Embed(color=discord.Color.green())
     embed.add_field(name="RAIN", value=msg, inline=True)
 
