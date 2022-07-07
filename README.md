@@ -1,4 +1,4 @@
-## PacCoin crypto currency TipBot for Telegram & Discord
+## FoxdCoin crypto currency TipBot for Telegram & Discord
 
 ## Dependencies:
 ```bash
