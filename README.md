@@ -8,27 +8,27 @@ sudo apt-get install git
 
 ## Install:
 ```bash
-git clone https://github.com/valgilbert/PacCoinTipBot
-bash ~/pacCoinTipBot/install.sh
+git clone https://github.com/chieftonn/foxdCoinTipBot
+bash ~/foxdCoinTipBot/install.sh
 ```
 
 ## SYSTEMD:
 ```bash 
 Telegram TipBOT
 
-sudo systemctl enable pacCoinTelegramTipBot    (to enable TipBot at boot)
-sudo systemctl start pacCoinTelegramTipBot     (to start TipBot)
-sudo systemctl stop pacCoinTelegramTipBot      (to stop TipBot)
-sudo systemctl restart pacCoinTelegramTipBot   (to restart TipBot)
-sudo systemctl status pacCoinTelegramTipBot    (to view status of TipBot process)
+sudo systemctl enable foxdCoinTelegramTipBot    (to enable TipBot at boot)
+sudo systemctl start foxdCoinTelegramTipBot     (to start TipBot)
+sudo systemctl stop foxdCoinTelegramTipBot      (to stop TipBot)
+sudo systemctl restart foxdCoinTelegramTipBot   (to restart TipBot)
+sudo systemctl status foxdCoinTelegramTipBot    (to view status of TipBot process)
 
 Discord TipBOT
 
-sudo systemctl enable pacCoinDiscordTipBot    (to enable TipBot at boot)
-sudo systemctl start pacCoinDiscordTipBot     (to start TipBot)
-sudo systemctl stop pacCoinDiscordTipBot      (to stop TipBot)
-sudo systemctl restart pacCoinDiscordTipBot   (to restart TipBot)
-sudo systemctl status pacCoinDiscordTipBot    (to view status of TipBot process)
+sudo systemctl enable foxdCoinDiscordTipBot    (to enable TipBot at boot)
+sudo systemctl start foxdCoinDiscordTipBot     (to start TipBot)
+sudo systemctl stop foxdCoinDiscordTipBot      (to stop TipBot)
+sudo systemctl restart foxdCoinDiscordTipBot   (to restart TipBot)
+sudo systemctl status foxdCoinDiscordTipBot    (to view status of TipBot process)
 ```
 
 ## Telegram
